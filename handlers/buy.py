@@ -228,7 +228,7 @@ async def disclaimer_accept(callback: CallbackQuery, state: FSMContext):
     photo  = BufferedInputFile(qr_buf.read(), filename="payment_qr.png")
 
     caption = payment_waiting_msg(voucher["name"], qty, total, order_id)
-    markup  = payment_keyboard(order_id, upi_link)
+    markup  = payment_keyboard(order_id)
 
     try:
         await callback.message.delete()
