@@ -40,11 +40,16 @@ def disclaimer_keyboard(voucher_id: int, qty: int) -> InlineKeyboardMarkup:
     return builder.as_markup()
 
 
-def payment_keyboard(order_id: str, upi_link: str) -> InlineKeyboardMarkup:
+def payment_keyboard(order_id: str) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
-    builder.button(text="📲 Open UPI App to Pay", url=upi_link)
-    builder.button(text="✅ I Have Paid",          callback_data=f"ipaid:{order_id}")
-    builder.button(text="❌ Cancel Order",         callback_data=f"cancel_o:{order_id}")
+    builder.button(
+        text="✅ I Have Paid",
+        callback_data=f"ipaid:{order_id}"
+    )
+    builder.button(
+        text="❌ Cancel Order",
+        callback_data=f"cancel_o:{order_id}"
+    )
     builder.adjust(1)
     return builder.as_markup()
 
