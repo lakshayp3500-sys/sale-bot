@@ -39,8 +39,14 @@ def expire_orders() -> list[dict]:
     now = datetime.now()
     conn = get_conn()
     rows = conn.execute(
-        "SELECT * FROM orders WHERE status = 'pending' AND expiry_at <= ?", (now,)
-    ).fetchall()
+    """
+    SELECT * FROM orders
+    WHERE status = 'pending'
+      AND utr IS NULL
+      AND expiry_at <= ?
+    """,
+    (now,)
+).fetchall()
     expired = [dict(r) for r in rows]
     if expired:
         ids = tuple(r["id"] for r in expired)
