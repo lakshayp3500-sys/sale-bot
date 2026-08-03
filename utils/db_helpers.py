@@ -180,13 +180,13 @@ def get_user_active_order(user_id: int) -> dict | None:
     now = datetime.now()
     conn = get_conn()
     row = conn.execute(
-        """SELECT * FROM orders
-   WHERE user_id = ?
-     AND status = 'pending'
-     AND (expiry_at > ? OR utr IS NOT NULL)
-   ORDER BY created_at DESC LIMIT 1"""
-        (user_id, now)
-    ).fetchone()
+    """SELECT * FROM orders
+       WHERE user_id = ?
+         AND status = 'pending'
+         AND (expiry_at > ? OR utr IS NOT NULL)
+       ORDER BY created_at DESC LIMIT 1""",
+    (user_id, now)
+).fetchone()
     conn.close()
     return dict(row) if row else None
 
